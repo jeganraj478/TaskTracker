@@ -1,0 +1,52 @@
+.spinner {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    background-color: aliceblue;
+    width: 100%;
+    position: fixed;
+    left: 0;
+    top: 0;
+    gap: var(--spacing-lg);
+    z-index: 10002;
+    opacity: 1;
+    transition: opacity 0.3s ease-out;
+}
+
+/* Add fade out class */
+.spinner.fade-out {
+    opacity: 0;
+    pointer-events: none;
+}
+
+/* Prevent body scroll when spinner is visible */
+body:has(.spinner:not(.fade-out)) {
+    overflow: hidden;
+}
+
+.dot{
+    height: var(--spacing-lg);
+    width: var(--spacing-lg);
+    background-color: var(--primary-color);
+    border-radius: 50%;
+    animation: bounce 0.6s infinite alternate;
+}
+
+@keyframes bounce{
+    from{
+        opacity: 0.6;
+        transform: translateY(0);
+    }
+    to{
+        opacity: 1;
+        transform: translateY(-12px);
+    }
+}
+
+.dot:nth-child(2){
+    animation-delay: 0.2s;
+}
+.dot:nth-child(3){
+    animation-delay: 0.4s;
+}

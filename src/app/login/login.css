@@ -1,0 +1,193 @@
+/* Login Page Styles */
+.login-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  padding: var(--spacing-xl);
+  max-width: 400px;
+  margin: 0 auto;
+  background-color: var(--background-color);
+}
+
+.login-container h2 {
+  color: var(--text-primary);
+  font-size: 2rem;
+  font-weight: 600;
+  margin-bottom: var(--spacing-xl);
+  text-align: center;
+}
+
+.login-input-field {
+  width: 100%;
+  padding: var(--spacing-md);
+  border: 2px solid var(--border-color);
+  border-radius: var(--radius);
+  font-size: 1rem;
+  color: var(--text-primary);
+  background-color: var(--surface-color);
+  margin-bottom: var(--spacing-lg);
+  transition: all 0.2s ease-in-out;
+  outline: none;
+}
+
+.login-input-field:focus {
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+}
+
+.login-input-field::placeholder {
+  color: var(--text-secondary);
+}
+
+.login-button {
+  width: 100%;
+  padding: var(--spacing-md) var(--spacing-lg);
+  background-color: var(--primary-color);
+  color: white;
+  border: none;
+  border-radius: var(--radius);
+  font-size: 1rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+  margin-bottom: var(--spacing-lg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 48px;
+  box-shadow: var(--shadow-sm);
+}
+
+.login-button:hover:not(:disabled) {
+  background-color: var(--primary-hover);
+  box-shadow: var(--shadow-md);
+  transform: translateY(-1px);
+}
+
+.login-button:active:not(:disabled) {
+  transform: translateY(0);
+  box-shadow: var(--shadow-sm);
+}
+
+.login-button:disabled {
+  background-color: var(--secondary-color);
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: var(--shadow-sm);
+}
+
+.login-spinner {
+  width: 20px;
+  height: 20px;
+  border: 2px solid transparent;
+  border-top: 2px solid white;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.login-signup-text {
+  text-align: center;
+  color: var(--text-secondary);
+  font-size: 0.9rem;
+  margin-top: var(--spacing-md);
+}
+
+.login-signup-text a {
+  color: var(--primary-color);
+  text-decoration: none;
+  font-weight: 500;
+  transition: color 0.2s ease-in-out;
+}
+
+.login-signup-text a:hover {
+  color: var(--primary-hover);
+  text-decoration: underline;
+}
+
+/* Responsive design for mobile devices */
+@media (max-width: 480px) {
+  .login-container {
+    padding: var(--spacing-lg);
+    max-width: 100%;
+  }
+  
+  .login-container h2 {
+    font-size: 1.75rem;
+    margin-bottom: var(--spacing-lg);
+  }
+  
+  .login-input-field,
+  .login-button {
+    padding: var(--spacing-lg);
+  }
+}
+
+/* Enhanced focus styles for better accessibility */
+.login-input-field:focus,
+.login-button:focus {
+  outline: 2px solid var(--primary-color);
+  outline-offset: 2px;
+}
+
+/* Error state for input fields (can be added dynamically) */
+.login-input-field.error {
+  border-color: var(--danger-color);
+  box-shadow: 0 0 0 3px rgba(220, 38, 38, 0.1);
+}
+
+/* Success state for input fields (can be added dynamically) */
+.login-input-field.success {
+  border-color: var(--success-color);
+  box-shadow: 0 0 0 3px rgba(5, 150, 105, 0.1);
+}
+
+/* Additional card-like styling for the form container */
+.login-container::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 100%;
+  max-width: 440px;
+  height: auto;
+  min-height: 500px;
+  background-color: var(--surface-color);
+  border-radius: calc(var(--radius) * 2);
+  box-shadow: var(--shadow-lg);
+  z-index: -1;
+}
+
+.login-container {
+  position: relative;
+  background: transparent;
+}
+
+/* Forgot password link (if you want to add it) */
+.login-forgot-password {
+  text-align: center;
+  margin-bottom: var(--spacing-md);
+}
+
+.login-forgot-password a {
+  color: var(--text-secondary);
+  font-size: 0.875rem;
+  text-decoration: none;
+  transition: color 0.2s ease-in-out;
+}
+
+.login-forgot-password a:hover {
+  color: var(--primary-color);
+  text-decoration: underline;
+}
