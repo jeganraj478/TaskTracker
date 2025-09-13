@@ -29,7 +29,7 @@ export default function LoginPage() {
       } else {
         setToast({ message: 'Login failed', type: 'error' });
       }
-    } catch (error) {
+    } catch  {
       setToast({ message: 'Something went wrong', type: 'error' });
     } finally {
       setLoading(false);

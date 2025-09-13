@@ -8,10 +8,14 @@ import {
   signRefreshToken,
 } from './auth';
 
-type HandlerFn = (userId: string, req: NextRequest, ctx: { params?: any }) => Promise<NextResponse>;
+interface HandlerContext {
+  params?: Record<string, string | string[]>;
+}
+
+type HandlerFn = (userId: string, req: NextRequest, ctx: HandlerContext) => Promise<NextResponse>;
 
 export function withProtectedApi(handler: HandlerFn) {
-  return async function (req: NextRequest, ctx: { params?: any } = {}) {
+  return async function (req: NextRequest, ctx: HandlerContext = {}) {
     try {
       await connectDB();
 
@@ -36,8 +40,14 @@ export function withProtectedApi(handler: HandlerFn) {
       const res = await handler(userId, req, ctx);
 
       if (newAccess && newRefresh) {
-        res.headers.append('Set-Cookie', `access_token=${newAccess}; Path=/; HttpOnly`);
-        res.headers.append('Set-Cookie', `refresh_token=${newRefresh}; Path=/; HttpOnly`);
+        res.headers.append(
+          'Set-Cookie',
+          `access_token=${newAccess}; Path=/; HttpOnly; SameSite=Strict`
+        );
+        res.headers.append(
+          'Set-Cookie',
+          `refresh_token=${newRefresh}; Path=/; HttpOnly; SameSite=Strict`
+        );
       }
 
       return res;

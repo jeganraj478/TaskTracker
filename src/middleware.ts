@@ -19,7 +19,7 @@ export async function middleware(req: NextRequest) {
      (await verifyAccessToken(accessToken));
       return NextResponse.next(); // valid access token
     }
-  } catch (err) {
+  } catch {
     console.log('Access token invalid or expired');
   }
   // If access token invalid, try refresh token
@@ -47,7 +47,7 @@ export async function middleware(req: NextRequest) {
       });
 
       return response;
-    } catch (err) {
+    } catch {
       console.log('Refresh token invalid');
       return redirectToLogin();
     }

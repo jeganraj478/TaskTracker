@@ -28,7 +28,7 @@ export default function SignupPage() {
       } else {
         setToast({ message: 'Signup failed', type: 'error' });
       }
-    } catch (err) {
+    } catch {
       setToast({ message: 'Something went wrong', type: 'error' });
     } finally {
       setLoading(false);
