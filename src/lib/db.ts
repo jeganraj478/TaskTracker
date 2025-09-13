@@ -14,11 +14,11 @@ type MongooseCache = {
 
 // Extend NodeJS global type so TypeScript knows about `global.mongoose`
 declare global {
-  // eslint-disable-next-line no-var
   var mongoose: MongooseCache | undefined;
 }
 
-let cached: MongooseCache = global.mongoose ?? { conn: null, promise: null };
+// ✅ use const since we never reassign cached
+const cached: MongooseCache = global.mongoose ?? { conn: null, promise: null };
 
 export async function connectDB(): Promise<Mongoose> {
   try {
