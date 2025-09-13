@@ -1,4 +1,4 @@
-import mongoose from 'mongoose';
+import mongoose, { Mongoose } from 'mongoose';
 
 const MONGODB_URI = process.env.MONGODB_URI as string;
 
@@ -6,23 +6,32 @@ if (!MONGODB_URI) {
   throw new Error('Please define the MONGODB_URI environment variable');
 }
 
-let cached = (global as any).mongoose;
+// Define a type for the cached object
+type MongooseCache = {
+  conn: Mongoose | null;
+  promise: Promise<Mongoose> | null;
+};
 
-if (!cached) {
-  cached = (global as any).mongoose = { conn: null, promise: null };
+// Extend NodeJS global type so TypeScript knows about `global.mongoose`
+declare global {
+  var mongoose: MongooseCache | undefined;
 }
 
-export async function connectDB() {
+// ✅ use const since we never reassign cached
+const cached: MongooseCache = global.mongoose ?? { conn: null, promise: null };
+
+export async function connectDB(): Promise<Mongoose> {
   try {
     if (cached.conn) return cached.conn;
 
     if (!cached.promise) {
       console.log('Connecting to MongoDB...');
-      cached.promise = mongoose.connect(MONGODB_URI).then((mongoose) => mongoose);
+      cached.promise = mongoose.connect(MONGODB_URI).then((m) => m);
     }
 
     cached.conn = await cached.promise;
     console.log('MongoDB connected');
+    global.mongoose = cached;
     return cached.conn;
   } catch (error) {
     console.error('MongoDB connection error:', error);

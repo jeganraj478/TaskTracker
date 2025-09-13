@@ -29,7 +29,7 @@ export default function LoginPage() {
       } else {
         setToast({ message: 'Login failed', type: 'error' });
       }
-    } catch (error) {
+    } catch  {
       setToast({ message: 'Something went wrong', type: 'error' });
     } finally {
       setLoading(false);
@@ -59,7 +59,8 @@ export default function LoginPage() {
         {loading ? <span className="login-spinner"></span> : 'Login'}
       </button>
       <p className="login-signup-text">
-        Don't have an account? <a href="/signup">Sign Up</a>
+        Don&apos;t have an account?
+ <a href="/signup">Sign Up</a>
       </p>
 
       {toast && (
