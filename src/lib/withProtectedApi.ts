@@ -8,14 +8,19 @@ import {
   signRefreshToken,
 } from './auth';
 
-interface HandlerContext {
-  params?: Record<string, string | string[]>;
+// Use Next.js App Router's expected context type
+interface RouteContext {
+  params: Promise<Record<string, string | string[]>>;
 }
 
-type HandlerFn = (userId: string, req: NextRequest, ctx: HandlerContext) => Promise<NextResponse>;
+type HandlerFn = (
+  userId: string, 
+  req: NextRequest, 
+  ctx: RouteContext
+) => Promise<NextResponse>;
 
 export function withProtectedApi(handler: HandlerFn) {
-  return async function (req: NextRequest, ctx: HandlerContext = {}) {
+  return async function (req: NextRequest, ctx: RouteContext) {
     try {
       await connectDB();
 
